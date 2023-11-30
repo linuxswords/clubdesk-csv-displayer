@@ -1,0 +1,16 @@
+{
+  "name": "clubdesk-csv-displayer",
+  "version": "1.0.0",
+  "description": "a simple module to load a csv and create a custom html table",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [],
+  "author": "martin.knoller@gmail.com",
+  "license": "ISC",
+  "devDependencies": {
+    "chai": "^4.3.10",
+    "mocha": "^10.2.0"
+  }
+}
