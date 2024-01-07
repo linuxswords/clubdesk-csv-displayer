@@ -10,21 +10,7 @@ If you fill out a form in clubdesk pages you don't get a confirmation email. So 
 
 With a little javascript you can load the file after the page load and, with this script, create an html table andd add it to the page.
 
-
-### Usage
-
-Create an instance of the `CSVConverter` class with the csv content as an argument. Call the `table` function and 
-receive a string back which contains a html table.
-
-```javascript
-const csv_data = load_it_from_somewhere(clubdesk_server)
-const csv_converter = new CSVConverter(csv_data)
-const html_table = csv_converter.table()
-// place it in your dom
-
-```
-
-
+## Configuration option
 
 The table function accepts a dictionary with a few options:
 
@@ -36,13 +22,50 @@ The table function accepts a dictionary with a few options:
 
 
 
+#### Clubdesk Integration Example
+
+Place the file from the `dist` folder to your owned webpage files
+```html
+<head>
+ ...   
+ <script type="text/javascript" src="wwwfiles/csvtabler.js"></script>
+ </head>
+```
+
+Now you need the file id of the csv file you want to show on your page. 
+The file need to be publicy accessible for a public page. Let's assume it is `1000430`
+
+Now add `externer Inhalt` block to your page and add following snippet to it:
+
+
+```html
+<div>
+	<h3>The title you want</h3>
+	<div id="clubdesklist_title_id_you_want">
+        The table will be displayed here
+	</div>
+</div>
+<script>
+$(document).ready(function(){
+    const settings = {ignore_columns:["E-Mail", "Erhalten am", "Bemerkungen"]};
+    csvtabler.loadFileAsTable("clubdesklist_title_id_you_want","1000430", settings);
+});
+</script>
+
+```
+
+
 ## Todo
 
-* [ ] Add code to integrate with html: 1. Load csv by file identifier
-* [ ] Add code to integrate with html: 2. Add code to load it into a targeted html element
+* [x] Add code to integrate with html: 1. Load csv by file identifier
+* [x] Add code to integrate with html: 2. Add code to load it into a targeted html element
 * [ ] Header row configurable -> ATM we assume the first row of the csv contains the header
 
 
 ## Development
 
 TDD! `npm test`
+
+### build
+
+run `npm run build` and the csvtabler.js file will be generated in the dist folder
