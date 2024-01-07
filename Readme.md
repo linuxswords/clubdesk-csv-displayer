@@ -1,8 +1,8 @@
 # clubdesk-csv-displayer
 
-A little javascript helper for clubdesk pages. 
+Aka csvtabler: A little javascript helper for clubdesk pages. 
 
-It converts a csv into a html table.
+It loads a csv file from the clubdesk server, converts a csv into a html table and places it into the page.
 
 ## Use Case
 
@@ -12,7 +12,7 @@ With a little javascript you can load the file after the page load and, with thi
 
 ## Configuration option
 
-The table function accepts a dictionary with a few options:
+The `loadFileAsTable` function accepts a dictionary with a few options:
 
 | Name                | Type      | Default Value | Description |
 | -----------------   | ----------| ------------- | ----------- |
