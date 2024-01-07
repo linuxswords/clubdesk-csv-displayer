@@ -39,6 +39,26 @@ class CSVConverter {
     }
 }
 
+function loadFileAsTable(targetContainerId, fileId, settings) {
+    $.ajax({
+      url: "fileservlet?id=" + fileId,
+      dataType: "text",
+      beforeSend: function(jqXHR) {
+        jqXHR.overrideMimeType('text/html;charset=iso-8859-1');
+      },
+      success: function(data) {
+        const clubdesklist_data = data.replace(/[^"]\n/g, '<br/>').replaceAll('\"','');
+        table_data = new CSVConverter(clubdesklist_data).table(settings);
+        $('#' + targetContainerId).html(table_data);
+      },
+      error: function(data) {
+        $('#' + targetContainerId).html('<div>Fehler beim laden der Daten</div>');
+      }
+    });
+  }
+
+
 module.exports = {
-    CSVConverter:CSVConverter
+    CSVConverter:CSVConverter,
+    loadFileAsTable
 }

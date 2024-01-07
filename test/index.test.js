@@ -1,4 +1,4 @@
-const CSVConverter = require('../src/app').CSVConverter;
+const CSVConverter = require('../src/index').CSVConverter;
 const expect = require('chai').expect;
 
 describe('Testing the CSVConverter', function(){
