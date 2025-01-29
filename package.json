@@ -1,6 +1,6 @@
 {
   "name": "clubdesk-csv-displayer",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "a simple module to load a csv and create a custom html table. Intended to use on clubdesk pages",
   "main": "app.js",
   "scripts": {
