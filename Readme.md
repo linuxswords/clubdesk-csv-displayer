@@ -59,8 +59,8 @@ $(document).ready(function(){
 
 * [x] Add code to integrate with html: 1. Load csv by file identifier
 * [x] Add code to integrate with html: 2. Add code to load it into a targeted html element
+* [x] Add option to output only the total number of rows - header to show the total of 'Anmeldungen' without showing the content
 * [ ] Header row configurable -> ATM we assume the first row of the csv contains the header
-* [ ] Add option to output only the total number of rows - header to show the total of 'Anmeldungen' without showing the content
 
 
 ## Development

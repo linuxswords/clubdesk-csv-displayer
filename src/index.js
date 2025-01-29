@@ -3,9 +3,14 @@ class CSVConverter {
         this.csv_content = csv_content
     }
 
-    table({ignore_columns = [], include_numbering = false, numbering_prefix=''}){
+    table({ignore_columns = [], include_numbering = false, numbering_prefix='', show_total_only=false, total_title='Total'}){
         var table = '<table>'
         const rows = this.csv_content.split('\n')
+
+        if(show_total_only){
+            return `<span class="total_csv_displayer">${total_title}: ${rows.length -1}</span>`
+        }
+
         var ignored_column_indices = []
         for(var row_index = 0; row_index < rows.length; row_index++) {
             const row = rows[row_index]

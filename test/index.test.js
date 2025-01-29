@@ -67,4 +67,22 @@ describe('Testing the CSVConverter', function(){
         done()
     })
     
+
+    it('6. show only total of entries', function(done){
+        const csv_data = 'Name;First Name\nBeutlin;Frodo\nSamwise;Gamgee'
+        const csv_converter = new CSVConverter(csv_data)
+        
+        expect(csv_converter.table({show_total_only: true})).to.equal(
+            '<span class="total_csv_displayer">Total: 2</span>')
+        done()
+    })
+
+    it('7. show only total of entries with respect of title', function(done){
+        const csv_data = 'Name;First Name\nBeutlin;Frodo\nSamwise;Gamgee'
+        const csv_converter = new CSVConverter(csv_data)
+        
+        expect(csv_converter.table({show_total_only: true, total_title: 'Anzahl Anmeldungen'})).to.equal(
+            '<span class="total_csv_displayer">Anzahl Anmeldungen: 2</span>')
+        done()
+    })
 })
