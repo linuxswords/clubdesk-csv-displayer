@@ -26,4 +26,4 @@ jobs:
       run: |
         npm install
         npm run test
-        npx run build
+        npm run build
