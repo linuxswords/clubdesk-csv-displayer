@@ -51,7 +51,8 @@ The `loadFileAsTable` function accepts a dictionary with a few options:
 
 | Name                | Type      | Default Value | Description |
 | -----------------   | ----------| ------------- | ----------- |
-| `ignore_columns`    | list[str] | `[]`          | If provided all columns are ignored when the header row matches an entry in the given array  
+| `ignore_columns`    | list[str] | `[]`          | If provided all columns are ignored when the header row matches an entry in the given array.
+If you want to hide the 'Email' and 'Bemerkungen' column you will use ` const settings = {ignore_columns:["Email", "Bemerkungen"]};
 | `include_numbering` | boolean   | `false`       | If `true` a column will be added to the table with numbering starting from 1
 | `numbering_prefix`  | string    | `''`          | If set the numbering entry will be prefixed with given argument. Providing `'Team'` will result in `'Team 1'`, `'Team 2'` etc. `include_numbering` must be `true`
 | `show_total_only`  | boolean    | `false`          | If set only the total number of rows will be returned.
