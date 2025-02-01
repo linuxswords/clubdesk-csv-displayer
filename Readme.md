@@ -8,25 +8,12 @@ It loads a csv file from the clubdesk server, converts a csv into a html table a
 
 If you fill out a form in clubdesk pages you don't get a confirmation email. So the admins usually post the list of the form entries file.
 
-With a little javascript you can load the file after the page load and, with this script, create an html table andd add it to the page.
-
-## Configuration option
-
-The `loadFileAsTable` function accepts a dictionary with a few options:
-
-| Name                | Type      | Default Value | Description |
-| -----------------   | ----------| ------------- | ----------- |
-| `ignore_columns`    | list[str] | `[]`          | If provided all columns are ignored when the header row matches an entry in the given array  
-| `include_numbering` | boolean   | `false`       | If `true` a column will be added to the table with numbering starting from 1
-| `numbering_prefix`  | string    | `''`          | If set the numbering entry will be prefixed with given argument. Providing `'Team'` will result in `'Team 1'`, `'Team 2'` etc. `include_numbering` must be `true`
-| `show_total_only`  | boolean    | `false`          | If set only the total number of rows will be returned.
-| `total_title`  | string    | `Total`          | Used together with `show_total`. If set it will be used the title. 
+With this little javascript you can load the file after the page load and, with this script, create an html table andd add it to the page.
 
 
+## Clubdesk Integration Example
 
-#### Clubdesk Integration Example
-
-Place the file from the `dist` folder to your owned webpage files
+Place the file from the `dist` folder to your owned webpage files.
 ```html
 <head>
  ...   
@@ -35,9 +22,9 @@ Place the file from the `dist` folder to your owned webpage files
 ```
 
 Now you need the file id of the csv file you want to show on your page. 
-The file need to be publicy accessible for a public page. Let's assume it is `1000430`
+The file needs to be publicy accessible for a public page. Let's assume the file id is `1000430`
 
-Now add `externer Inhalt` block to your page and add following snippet to it:
+Now add an `externer Inhalt` block to your page and add following snippet to it:
 
 
 ```html
@@ -56,8 +43,24 @@ $(document).ready(function(){
 
 ```
 
+Replace _The title you want_ with a title you actually want and change the settings in the code block according to your liking. Without any changes it will display the whole csv with all columns.
 
-## Todo
+## Configuration option
+
+The `loadFileAsTable` function accepts a dictionary with a few options:
+
+| Name                | Type      | Default Value | Description |
+| -----------------   | ----------| ------------- | ----------- |
+| `ignore_columns`    | list[str] | `[]`          | If provided all columns are ignored when the header row matches an entry in the given array  
+| `include_numbering` | boolean   | `false`       | If `true` a column will be added to the table with numbering starting from 1
+| `numbering_prefix`  | string    | `''`          | If set the numbering entry will be prefixed with given argument. Providing `'Team'` will result in `'Team 1'`, `'Team 2'` etc. `include_numbering` must be `true`
+| `show_total_only`  | boolean    | `false`          | If set only the total number of rows will be returned.
+| `total_title`  | string    | `Total`          | Used together with `show_total`. If set it will be used the title. 
+
+
+## Development
+
+### Todo
 
 * [x] Add code to integrate with html: 1. Load csv by file identifier
 * [x] Add code to integrate with html: 2. Add code to load it into a targeted html element
@@ -65,11 +68,13 @@ $(document).ready(function(){
 * [ ] Header row configurable -> ATM we assume the first row of the csv contains the header
 
 
-## Development
+### Development
+
+`npm install`
 
 TDD! `npm test`
 
-### build
+### Build
 
 run `npm run build` and the csvtabler.js file will be generated in the dist folder
 
