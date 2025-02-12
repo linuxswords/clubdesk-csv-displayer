@@ -83,6 +83,10 @@ run `npm run build` and the csvtabler.js file will be generated in the dist fold
 
 ## Releases
 
+### 1.0.2 (12.2.2025)
+
+Added `numbering_postfix` option.
+
 ### 1.0.1 (1.2.2025)
 
 Added options `show_total_only` and `total_title` for showing row count. Use case: how many entries do we have without showing the entries.
