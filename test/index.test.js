@@ -55,6 +55,19 @@ describe('Testing the CSVConverter', function(){
 
 
 
+    it('4.5 includes numbering postfix', function(done){
+        const csv_data = 'Name;First Name\nBeutlin;Frodo'
+        const csv_converter = new CSVConverter(csv_data)
+        
+        expect(csv_converter.table({include_numbering:true, numbering_postfix: '.'})).to.equal(
+            '<table>'+
+            '<tr><th></th><th>Name</th><th>First Name</th></tr>'+
+            '<tr><td>1.</td><td>Beutlin</td><td>Frodo</td></tr>'+
+            '</table>')
+        done()
+    })
+
+
     it('5. includes numbering with prefix', function(done){
         const csv_data = 'Name;First Name\nBeutlin;Frodo'
         const csv_converter = new CSVConverter(csv_data)
@@ -63,6 +76,20 @@ describe('Testing the CSVConverter', function(){
             '<table>'+
             '<tr><th></th><th>Name</th><th>First Name</th></tr>'+
             '<tr><td>Team 1</td><td>Beutlin</td><td>Frodo</td></tr>'+
+            '</table>')
+        done()
+    })
+
+
+
+    it('5.5 includes numbering with prefix and postfix', function(done){
+        const csv_data = 'Name;First Name\nBeutlin;Frodo'
+        const csv_converter = new CSVConverter(csv_data)
+        
+        expect(csv_converter.table({include_numbering:true, numbering_prefix: 'Team', numbering_postfix: '.'})).to.equal(
+            '<table>'+
+            '<tr><th></th><th>Name</th><th>First Name</th></tr>'+
+            '<tr><td>Team 1.</td><td>Beutlin</td><td>Frodo</td></tr>'+
             '</table>')
         done()
     })

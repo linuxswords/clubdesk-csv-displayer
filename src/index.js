@@ -3,7 +3,7 @@ class CSVConverter {
         this.csv_content = csv_content
     }
 
-    table({ignore_columns = [], include_numbering = false, numbering_prefix='', show_total_only=false, total_title='Total'}){
+    table({ignore_columns = [], include_numbering = false, numbering_prefix='', numbering_postfix='', show_total_only=false, total_title='Total'}){
         var table = '<table>'
         const rows = this.csv_content.split('\n')
 
@@ -30,7 +30,8 @@ class CSVConverter {
                 if(column_index===0 && include_numbering){
                     const number = row_index > 0 ? row_index : ''
                     const prefix = numbering_prefix && row_index > 0 ? numbering_prefix + ' ' : ''
-                    table += `<${tag}>${prefix}${number}</${tag}>`
+                    const postfix = numbering_postfix && row_index > 0 ? numbering_postfix : ''
+                    table += `<${tag}>${prefix}${number}${postfix}</${tag}>`
                 }
                 // add column entry if not on ignore list
                 if(!ignored_column_indices.includes(column_index)){

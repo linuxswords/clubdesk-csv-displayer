@@ -53,7 +53,8 @@ The `loadFileAsTable` function accepts a dictionary with a few options:
 | -----------------   | ----------| ------------- | ----------- |
 | `ignore_columns`    | list[str] | `[]`          | If provided all columns are ignored when the header row matches an entry in the given array.<br>  If you want to hide the 'Email' and 'Bemerkungen' column you will use ` const settings = {ignore_columns:["Email", "Bemerkungen"]};`
 | `include_numbering` | boolean   | `false`       | If `true` a column will be added to the table with numbering starting from 1
-| `numbering_prefix`  | string    | `''`          | If set the numbering entry will be prefixed with given argument. Providing `'Team'` will result in `'Team 1'`, `'Team 2'` etc. `include_numbering` must be `true`
+| `numbering_prefix`  | string    | `''`          | If set the numbering entry will be prefixed with given argument. Providing `'Team'` will result in `'Team 1'`, `'Team 2'` etc. `include_numbering` must be `true`, can be combined with `numbering_postfix`
+| `numbering_postfix` | string    | `''`          | If set the numbering entry will be postfixed with given argument. Providing `'.'` will result in `'1.'`, `'2.'` etc. `include_numbering` must be `true`, can be combined with `numbering_prefix`
 | `show_total_only`  | boolean    | `false`          | If set only the total number of rows will be returned.
 | `total_title`  | string    | `'Total'`          | Used together with `show_total`. If set it will be used the title. 
 
@@ -65,7 +66,7 @@ The `loadFileAsTable` function accepts a dictionary with a few options:
 * [x] Add code to integrate with html: 1. Load csv by file identifier
 * [x] Add code to integrate with html: 2. Add code to load it into a targeted html element
 * [x] Add option to output only the total number of rows - header to show the total of 'Anmeldungen' without showing the content
-* [ ] Add a numbering_postfix option to enable numbering like '1.', '2.' etc.
+* [x] Add a numbering_postfix option to enable numbering like '1.', '2.' etc.
 * [ ] Header row configurable -> ATM we assume the first row of the csv contains the header
 
 
