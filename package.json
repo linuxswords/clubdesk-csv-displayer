@@ -2,15 +2,35 @@
   "name": "clubdesk-csv-displayer",
   "version": "1.0.2",
   "description": "a simple module to load a csv and create a custom html table. Intended to use on clubdesk pages",
-  "main": "app.js",
+  "main": "dist/csvtabler.js",
+  "files": [
+    "dist",
+    "src",
+    "README.md",
+    "LICENSE.txt"
+  ],
   "scripts": {
     "test": "mocha",
-    "build": "webpack"
+    "build": "webpack",
+    "prepublishOnly": "npm test && npm run build"
   },
-  "keywords": [],
+  "keywords": [
+    "csv",
+    "table",
+    "clubdesk",
+    "html",
+    "converter"
+  ],
   "author": "martin.knoller@gmail.com",
   "license": "ISC",
-  "git repository": "https://github.com/linuxswords/clubdesk-csv-displayer",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/linuxswords/clubdesk-csv-displayer.git"
+  },
+  "bugs": {
+    "url": "https://github.com/linuxswords/clubdesk-csv-displayer/issues"
+  },
+  "homepage": "https://github.com/linuxswords/clubdesk-csv-displayer#readme",
   "devDependencies": {
     "chai": "^4.3.10",
     "mocha": "^10.2.0",

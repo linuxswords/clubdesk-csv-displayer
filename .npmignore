@@ -1,0 +1,22 @@
+# Source files (already included via package.json files field)
+# node_modules is automatically excluded by npm
+
+# Development files
+.vscode/
+.github/
+*.log
+npm-debug.log*
+
+# Test files
+test/
+
+# Build configuration
+webpack.config.js
+
+# Git files
+.git/
+.gitignore
+
+# OS files
+.DS_Store
+Thumbs.db
