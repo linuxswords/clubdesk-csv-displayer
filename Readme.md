@@ -84,7 +84,7 @@ run `npm run build` and the csvtabler.js file will be generated in the dist fold
 
 ## Releases
 
-### unreleased
+### 1.2.0 (24.7.2026)
 
 Added `include_only_if_true` option to render only rows whose given column holds a truthy value.
 
