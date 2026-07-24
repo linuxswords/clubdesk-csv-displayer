@@ -57,6 +57,7 @@ The `loadFileAsTable` function accepts a dictionary with a few options:
 | `numbering_postfix` | string    | `''`          | If set the numbering entry will be postfixed with given argument. Providing `'.'` will result in `'1.'`, `'2.'` etc. `include_numbering` must be `true`, can be combined with `numbering_prefix`
 | `show_total_only`  | boolean    | `false`          | If set only the total number of rows will be returned.
 | `total_title`  | string    | `'Total'`          | Used together with `show_total`. If set it will be used the title. 
+| `include_only_if_true` | string | `''`         | Header name of a column to check. Only rows whose value in that column is truthy are rendered. Truthy values: `true`, `1`, `ja`, `yes`, `x` (case-insensitive, whitespace trimmed). Other columns' values do not affect filtering. Combine with `ignore_columns` to hide the checked column itself.
 
 
 ## Development
@@ -82,6 +83,10 @@ run `npm run build` and the csvtabler.js file will be generated in the dist fold
 
 
 ## Releases
+
+### unreleased
+
+Added `include_only_if_true` option to render only rows whose given column holds a truthy value.
 
 ### 1.0.2 (12.2.2025)
 

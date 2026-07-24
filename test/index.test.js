@@ -107,9 +107,35 @@ describe('Testing the CSVConverter', function(){
     it('7. show only total of entries with respect of title', function(done){
         const csv_data = 'Name;First Name\nBeutlin;Frodo\nSamwise;Gamgee'
         const csv_converter = new CSVConverter(csv_data)
-        
+
         expect(csv_converter.table({show_total_only: true, total_title: 'Anzahl Anmeldungen'})).to.equal(
             '<span class="total_csv_displayer">Anzahl Anmeldungen: 2</span>')
+        done()
+    })
+
+    it('8. include_only_if_true renders only rows whose column is truthy', function(done){
+        const csv_data = 'Name;Active\nBeutlin;true\nGamgee;false\nGandalf;1'
+        const csv_converter = new CSVConverter(csv_data)
+
+        expect(csv_converter.table({include_only_if_true: 'Active'})).to.equal(
+            '<table>'+
+            '<tr><th>Name</th><th>Active</th></tr>'+
+            '<tr><td>Beutlin</td><td>true</td></tr>'+
+            '<tr><td>Gandalf</td><td>1</td></tr>'+
+            '</table>')
+        done()
+    })
+
+    it('9. include_only_if_true ignores truthy values in other columns', function(done){
+        const csv_data = 'Name;Paid;Active\nBeutlin;true;true\nGamgee;true;false\nGandalf;false;1'
+        const csv_converter = new CSVConverter(csv_data)
+
+        expect(csv_converter.table({include_only_if_true: 'Active'})).to.equal(
+            '<table>'+
+            '<tr><th>Name</th><th>Paid</th><th>Active</th></tr>'+
+            '<tr><td>Beutlin</td><td>true</td><td>true</td></tr>'+
+            '<tr><td>Gandalf</td><td>false</td><td>1</td></tr>'+
+            '</table>')
         done()
     })
 })

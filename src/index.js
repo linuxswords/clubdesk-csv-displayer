@@ -3,7 +3,7 @@ class CSVConverter {
         this.csv_content = csv_content
     }
 
-    table({ignore_columns = [], include_numbering = false, numbering_prefix='', numbering_postfix='', show_total_only=false, total_title='Total'}){
+    table({ignore_columns = [], include_numbering = false, numbering_prefix='', numbering_postfix='', show_total_only=false, total_title='Total', include_only_if_true=''}){
         var table = '<table>'
         const rows = this.csv_content.split('\n')
 
@@ -11,11 +11,18 @@ class CSVConverter {
             return `<span class="total_csv_displayer">${total_title}: ${rows.length -1}</span>`
         }
 
+        const is_true = (value) => /^\s*(true|1|ja|yes|x)\s*$/i.test(value)
+
         var ignored_column_indices = []
+        var filter_column_index = -1
         for(var row_index = 0; row_index < rows.length; row_index++) {
             const row = rows[row_index]
-            table += '<tr>'
             const fields = row.split(';')
+            // skip data rows whose filter column is not truthy
+            if(row_index > 0 && include_only_if_true && filter_column_index >= 0 && !is_true(fields[filter_column_index])){
+                continue
+            }
+            table += '<tr>'
             for(var column_index = 0; column_index < fields.length; column_index++){
                 const field = fields[column_index]
                 
@@ -24,6 +31,9 @@ class CSVConverter {
                     tag = 'th'
                     if(ignore_columns.includes(field)){
                         ignored_column_indices.push(column_index)
+                    }
+                    if(field===include_only_if_true){
+                        filter_column_index = column_index
                     }
                 }
                 // add row numbering with prefix except for the header row
