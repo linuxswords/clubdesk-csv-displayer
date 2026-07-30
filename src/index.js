@@ -3,7 +3,7 @@ class CSVConverter {
         this.csv_content = csv_content
     }
 
-    table({ignore_columns = [], include_numbering = false, numbering_prefix='', numbering_postfix='', show_total_only=false, total_title='Total', include_only_if_true=''}){
+    table({ignore_columns = [], include_numbering = false, numbering_prefix='', numbering_postfix='', show_total_only=false, total_title='Total', include_only_if_true='', split_threshold=0, waiting_list_title='Warteliste'}){
         var table = '<table>'
         const rows = this.csv_content.split('\n')
 
@@ -15,12 +15,24 @@ class CSVConverter {
 
         var ignored_column_indices = []
         var filter_column_index = -1
+        var rendered_data_rows = 0
+        var divider_added = false
         for(var row_index = 0; row_index < rows.length; row_index++) {
             const row = rows[row_index]
             const fields = row.split(';')
             // skip data rows whose filter column is not truthy
             if(row_index > 0 && include_only_if_true && filter_column_index >= 0 && !is_true(fields[filter_column_index])){
                 continue
+            }
+            // insert the waiting list divider right before the first row past the threshold,
+            // so it only appears when there actually is a waiting list
+            if(row_index > 0){
+                if(split_threshold > 0 && !divider_added && rendered_data_rows === split_threshold){
+                    const colspan = (include_numbering ? 1 : 0) + (fields.length - ignored_column_indices.length)
+                    table += `<tr class="waiting_list"><td colspan="${colspan}">${waiting_list_title}</td></tr>`
+                    divider_added = true
+                }
+                rendered_data_rows++
             }
             table += '<tr>'
             for(var column_index = 0; column_index < fields.length; column_index++){

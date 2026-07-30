@@ -166,4 +166,78 @@ describe('Testing the CSVConverter', function(){
             '</table>')
         done()
     })
+
+    it('12. split_threshold inserts a waiting list divider after the given number of rows', function(done){
+        const csv_data = 'Name;Team\nA;1\nB;2\nC;3\nD;4'
+        const csv_converter = new CSVConverter(csv_data)
+
+        expect(csv_converter.table({split_threshold: 2})).to.equal(
+            '<table>'+
+            '<tr><th>Name</th><th>Team</th></tr>'+
+            '<tr><td>A</td><td>1</td></tr>'+
+            '<tr><td>B</td><td>2</td></tr>'+
+            '<tr class="waiting_list"><td colspan="2">Warteliste</td></tr>'+
+            '<tr><td>C</td><td>3</td></tr>'+
+            '<tr><td>D</td><td>4</td></tr>'+
+            '</table>')
+        done()
+    })
+
+    it('13. split_threshold uses a custom waiting_list_title', function(done){
+        const csv_data = 'Name;Team\nA;1\nB;2\nC;3'
+        const csv_converter = new CSVConverter(csv_data)
+
+        expect(csv_converter.table({split_threshold: 1, waiting_list_title: 'Nachrücker'})).to.equal(
+            '<table>'+
+            '<tr><th>Name</th><th>Team</th></tr>'+
+            '<tr><td>A</td><td>1</td></tr>'+
+            '<tr class="waiting_list"><td colspan="2">Nachrücker</td></tr>'+
+            '<tr><td>B</td><td>2</td></tr>'+
+            '<tr><td>C</td><td>3</td></tr>'+
+            '</table>')
+        done()
+    })
+
+    it('14. split_threshold at or above the row count renders no divider', function(done){
+        const csv_data = 'Name;Team\nA;1\nB;2'
+        const csv_converter = new CSVConverter(csv_data)
+
+        expect(csv_converter.table({split_threshold: 2})).to.equal(
+            '<table>'+
+            '<tr><th>Name</th><th>Team</th></tr>'+
+            '<tr><td>A</td><td>1</td></tr>'+
+            '<tr><td>B</td><td>2</td></tr>'+
+            '</table>')
+        done()
+    })
+
+    it('15. split_threshold keeps numbering continuous and spans the numbering column', function(done){
+        const csv_data = 'Name;Team\nA;1\nB;2\nC;3'
+        const csv_converter = new CSVConverter(csv_data)
+
+        expect(csv_converter.table({split_threshold: 2, include_numbering: true})).to.equal(
+            '<table>'+
+            '<tr><th></th><th>Name</th><th>Team</th></tr>'+
+            '<tr><td>1</td><td>A</td><td>1</td></tr>'+
+            '<tr><td>2</td><td>B</td><td>2</td></tr>'+
+            '<tr class="waiting_list"><td colspan="3">Warteliste</td></tr>'+
+            '<tr><td>3</td><td>C</td><td>3</td></tr>'+
+            '</table>')
+        done()
+    })
+
+    it('16. split_threshold counts only rows kept by include_only_if_true', function(done){
+        const csv_data = 'Name;Aktiv\nA;ja\nB;nein\nC;ja\nD;ja'
+        const csv_converter = new CSVConverter(csv_data)
+
+        expect(csv_converter.table({split_threshold: 2, include_only_if_true: 'Aktiv'})).to.equal(
+            '<table>'+
+            '<tr><th>Name</th><th>Aktiv</th></tr>'+
+            '<tr><td>A</td><td>ja</td></tr>'+
+            '<tr><td>C</td><td>ja</td></tr>'+
+            '<tr class="waiting_list"><td colspan="2">Warteliste</td></tr>'+
+            '<tr><td>D</td><td>ja</td></tr>'+
+            '</table>')
+        done()
+    })
 })

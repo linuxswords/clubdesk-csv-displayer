@@ -58,6 +58,8 @@ The `loadFileAsTable` function accepts a dictionary with a few options:
 | `show_total_only`  | boolean    | `false`          | If set only the total number of rows will be returned.
 | `total_title`  | string    | `'Total'`          | Used together with `show_total`. If set it will be used the title. 
 | `include_only_if_true` | string | `''`         | Header name of a column to check. Only rows whose value in that column is truthy are rendered. Truthy values: `true`, `1`, `ja`, `yes`, `x` (case-insensitive, whitespace trimmed). Other columns' values do not affect filtering. Combine with `ignore_columns` to hide the checked column itself.
+| `split_threshold`  | number    | `0`          | If greater than `0`, the table is split after this many rows: the first `split_threshold` rows form the participant list, the remaining rows the waiting list. A full-width divider row (spanning all rendered columns) is inserted between them, but only when there actually are rows beyond the threshold. Counts only rows that are rendered (i.e. after `include_only_if_true` filtering); numbering continues uninterrupted across the split.
+| `waiting_list_title` | string  | `'Warteliste'` | Text shown in the divider row inserted by `split_threshold`.
 
 
 ## Development
@@ -83,6 +85,10 @@ run `npm run build` and the csvtabler.js file will be generated in the dist fold
 
 
 ## Releases
+
+### 1.3.0 (30.7.2026)
+
+Added `split_threshold` (and `waiting_list_title`) option to split the table into a participant list and a waiting list after a configurable number of rows.
 
 ### 1.2.1 (30.7.2026)
 
