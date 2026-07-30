@@ -84,6 +84,10 @@ run `npm run build` and the csvtabler.js file will be generated in the dist fold
 
 ## Releases
 
+### 1.2.1 (30.7.2026)
+
+Added tests confirming `include_only_if_true` accepts german `Ja`/`Nein` and uppercase truthy values. Upgraded `mocha` to v11 so the test suite runs on Node 26.
+
 ### 1.2.0 (24.7.2026)
 
 Added `include_only_if_true` option to render only rows whose given column holds a truthy value.
