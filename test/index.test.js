@@ -138,4 +138,32 @@ describe('Testing the CSVConverter', function(){
             '</table>')
         done()
     })
+
+    it('10. include_only_if_true treats german Ja/Nein values as true/false', function(done){
+        const csv_data = 'Name;Aktiv\nBeutlin;Ja\nGamgee;Nein\nGandalf;ja'
+        const csv_converter = new CSVConverter(csv_data)
+
+        expect(csv_converter.table({include_only_if_true: 'Aktiv'})).to.equal(
+            '<table>'+
+            '<tr><th>Name</th><th>Aktiv</th></tr>'+
+            '<tr><td>Beutlin</td><td>Ja</td></tr>'+
+            '<tr><td>Gandalf</td><td>ja</td></tr>'+
+            '</table>')
+        done()
+    })
+
+    it('11. include_only_if_true matches truthy values case-insensitively', function(done){
+        const csv_data = 'Name;Aktiv\nBeutlin;JA\nGamgee;NEIN\nGandalf;TRUE\nBaggins;YES\nMerry;X'
+        const csv_converter = new CSVConverter(csv_data)
+
+        expect(csv_converter.table({include_only_if_true: 'Aktiv'})).to.equal(
+            '<table>'+
+            '<tr><th>Name</th><th>Aktiv</th></tr>'+
+            '<tr><td>Beutlin</td><td>JA</td></tr>'+
+            '<tr><td>Gandalf</td><td>TRUE</td></tr>'+
+            '<tr><td>Baggins</td><td>YES</td></tr>'+
+            '<tr><td>Merry</td><td>X</td></tr>'+
+            '</table>')
+        done()
+    })
 })
