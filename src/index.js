@@ -3,7 +3,7 @@ class CSVConverter {
         this.csv_content = csv_content
     }
 
-    table({ignore_columns = [], include_numbering = false, numbering_prefix='', numbering_postfix='', show_total_only=false, total_title='Total', include_only_if_true='', split_threshold=0, waiting_list_title='Warteliste'}){
+    table({ignore_columns = [], include_numbering = false, numbering_prefix='', numbering_postfix='', show_total_only=false, total_title='Total', include_only_if_true='', split_threshold=0, waiting_list_title='Warteliste', empty_text=''}){
         var table = '<table>'
         const rows = this.csv_content.split('\n')
 
@@ -17,6 +17,7 @@ class CSVConverter {
         var filter_column_index = -1
         var rendered_data_rows = 0
         var divider_added = false
+        var has_data = false
         for(var row_index = 0; row_index < rows.length; row_index++) {
             const row = rows[row_index]
             const fields = row.split(';')
@@ -33,6 +34,10 @@ class CSVConverter {
                     divider_added = true
                 }
                 rendered_data_rows++
+                // blank rows (e.g. a trailing newline) do not count as content
+                if(row.trim()){
+                    has_data = true
+                }
             }
             table += '<tr>'
             for(var column_index = 0; column_index < fields.length; column_index++){
@@ -62,6 +67,11 @@ class CSVConverter {
             }
             table += '</tr>'
         }
+        // no rows left to show (empty file or everything filtered out) -> show the given text instead
+        if(empty_text && !has_data){
+            return `<span class="empty_csv_displayer">${empty_text}</span>`
+        }
+
         table += '</table>'
         return table
     }

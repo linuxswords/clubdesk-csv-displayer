@@ -60,6 +60,7 @@ The `loadFileAsTable` function accepts a dictionary with a few options:
 | `include_only_if_true` | string | `''`         | Header name of a column to check. Only rows whose value in that column is truthy are rendered. Truthy values: `true`, `1`, `ja`, `yes`, `x` (case-insensitive, whitespace trimmed). Other columns' values do not affect filtering. Combine with `ignore_columns` to hide the checked column itself.
 | `split_threshold`  | number    | `0`          | If greater than `0`, the table is split after this many rows: the first `split_threshold` rows form the participant list, the remaining rows the waiting list. A full-width divider row (spanning all rendered columns) is inserted between them, but only when there actually are rows beyond the threshold. Counts only rows that are rendered (i.e. after `include_only_if_true` filtering); numbering continues uninterrupted across the split.
 | `waiting_list_title` | string  | `'Warteliste'` | Text shown in the divider row inserted by `split_threshold`.
+| `empty_text`        | string    | `''`          | If set and there are no rows to show, this text is rendered instead of the table (as `<span class="empty_csv_displayer">`). Respects `include_only_if_true`: if the filter removes every row, the table counts as empty. A trailing newline in the csv does not count as a row. Left empty (the default) an empty csv still renders the header-only table.
 
 
 ## Development
@@ -85,6 +86,10 @@ run `npm run build` and the csvtabler.js file will be generated in the dist fold
 
 
 ## Releases
+
+### 1.4.0 (8.8.2026)
+
+Added `empty_text` option to show a text instead of the table when there are no rows to display, taking `include_only_if_true` filtering into account.
 
 ### 1.3.0 (30.7.2026)
 

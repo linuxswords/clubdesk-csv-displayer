@@ -240,4 +240,54 @@ describe('Testing the CSVConverter', function(){
             '</table>')
         done()
     })
+
+    it('17. empty_text is shown when the csv holds no data rows', function(done){
+        const csv_data = 'Name;First Name'
+        const csv_converter = new CSVConverter(csv_data)
+
+        expect(csv_converter.table({empty_text: 'Keine Anmeldungen'})).to.equal(
+            '<span class="empty_csv_displayer">Keine Anmeldungen</span>')
+        done()
+    })
+
+    it('18. empty_text ignores a trailing newline in the csv', function(done){
+        const csv_data = 'Name;First Name\n'
+        const csv_converter = new CSVConverter(csv_data)
+
+        expect(csv_converter.table({empty_text: 'Keine Anmeldungen'})).to.equal(
+            '<span class="empty_csv_displayer">Keine Anmeldungen</span>')
+        done()
+    })
+
+    it('19. empty_text is shown when include_only_if_true filters out all rows', function(done){
+        const csv_data = 'Name;Aktiv\nBeutlin;nein\nGamgee;Nein'
+        const csv_converter = new CSVConverter(csv_data)
+
+        expect(csv_converter.table({empty_text: 'Keine Anmeldungen', include_only_if_true: 'Aktiv'})).to.equal(
+            '<span class="empty_csv_displayer">Keine Anmeldungen</span>')
+        done()
+    })
+
+    it('20. empty_text is not shown when include_only_if_true keeps a row', function(done){
+        const csv_data = 'Name;Aktiv\nBeutlin;nein\nGamgee;ja'
+        const csv_converter = new CSVConverter(csv_data)
+
+        expect(csv_converter.table({empty_text: 'Keine Anmeldungen', include_only_if_true: 'Aktiv'})).to.equal(
+            '<table>'+
+            '<tr><th>Name</th><th>Aktiv</th></tr>'+
+            '<tr><td>Gamgee</td><td>ja</td></tr>'+
+            '</table>')
+        done()
+    })
+
+    it('21. without empty_text an empty csv still renders the header table', function(done){
+        const csv_data = 'Name;First Name'
+        const csv_converter = new CSVConverter(csv_data)
+
+        expect(csv_converter.table({})).to.equal(
+            '<table>'+
+            '<tr><th>Name</th><th>First Name</th></tr>'+
+            '</table>')
+        done()
+    })
 })
